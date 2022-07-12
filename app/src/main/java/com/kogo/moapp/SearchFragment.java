@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.text.Editable;
@@ -49,12 +50,16 @@ public class SearchFragment extends Fragment {
 
         searchBinding = FragmentSearchBinding.inflate(inflater, container, false);
         moviesListPopular.clear();
+        searchBinding.recyclerViewMovies.setHasFixedSize(true);
+        searchBinding.recyclerViewMovies.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+
         getPopularMovies();
 
         searchBinding.textViewCancel.setOnClickListener(view -> {
             searchBinding.editTextSearchMovie.getText().clear();
             moviesListPopular.clear();
-            getPopularMovies();
+            moviesListSearch.clear();
+            // getPopularMovies();
             hideKeyboard(getActivity());
         });
 
@@ -102,6 +107,8 @@ public class SearchFragment extends Fragment {
 
         if (searchMovieURL.equals("https://api.themoviedb.org/3/search/movie?api_key=4186844cb1e227ca51b707e60d7238fe&language=en-US&query=")){
             moviesListPopular.clear();
+            moviesListSearch.clear();
+            System.out.println("Burada");
             getPopularMovies();
         }
         else {
@@ -130,12 +137,11 @@ public class SearchFragment extends Fragment {
                             moviesListSearch.add(m1);
 
                             searchBinding.recyclerViewMovies.setHasFixedSize(true);
-                            searchBinding.recyclerViewMovies.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+                            searchBinding.recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext()));
                             searchMovieAdapter = new SearchMovieAdapter(getContext(),moviesListSearch);
                             searchBinding.recyclerViewMovies.setAdapter(searchMovieAdapter);
 
                         }
-
 
                     } catch (JSONException e ) {
                         e.printStackTrace();
@@ -155,6 +161,7 @@ public class SearchFragment extends Fragment {
 
     public void getPopularMovies(){
 
+        moviesListPopular.clear();
         String popularMoviesURL = urlPopularMovie + apiKey + "&page=1";
         // popularMoviesURL = https://api.themoviedb.org/3/movie/popular?api_key=4186844cb1e227ca51b707e60d7238fe&page=1
 
@@ -178,12 +185,14 @@ public class SearchFragment extends Fragment {
                         String release_date = jsonObjectMovie.getString("release_date");
                         double vote_average = jsonObjectMovie.getDouble("vote_average");
 
+                        System.out.println(original_title);
+
                        // moviesListPopular.add(i ,new Movies(id,original_title,overview,poster_path,release_date));
                         Movies m1 = new Movies(id,original_title,overview,poster_path,release_date,vote_average);
                         moviesListPopular.add(m1);
 
                         searchBinding.recyclerViewMovies.setHasFixedSize(true);
-                        searchBinding.recyclerViewMovies.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+                        searchBinding.recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext()));
                         searchMovieAdapter = new SearchMovieAdapter(getContext(),moviesListPopular);
                         searchBinding.recyclerViewMovies.setAdapter(searchMovieAdapter);
 

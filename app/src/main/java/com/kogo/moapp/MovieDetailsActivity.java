@@ -1,6 +1,7 @@
 package com.kogo.moapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movieDetailsBinding = ActivityMovieDetailsBinding.inflate(getLayoutInflater());
         setContentView(movieDetailsBinding.getRoot());
 
+        AppDatabase db = Room.databaseBuilder(MovieDetailsActivity.this,
+                AppDatabase.class, "database-name").allowMainThreadQueries().build();
 
         String movieTitle = getIntent().getStringExtra("Movie Title");
         String movieOverview = getIntent().getStringExtra("Movie Overview");
@@ -31,6 +34,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         String movieReleaseDate = getIntent().getStringExtra("Movie Release Date");
         double movieVoteAverage = getIntent().getDoubleExtra("Movie Vote Average",0.0);
         System.out.println(moviePoster);
+
+        MoviesCopy moviesCopy = new MoviesCopy(2,movieTitle,movieOverview,moviePoster,movieReleaseDate,movieVoteAverage);
 
         String photo_url_str = "https://image.tmdb.org/t/p/original/" + moviePoster;
         Picasso.with(getApplicationContext()).load(photo_url_str).into(movieDetailsBinding.imageViewMoviePoster);
@@ -47,6 +52,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movieDetailsBinding.imageViewBackToSearch.setOnClickListener(view -> {
             Intent intent = new Intent(MovieDetailsActivity.this, MenuActivity.class);
             startActivity(intent);
+        });
+
+        movieDetailsBinding.imageViewSaveToFavorites.setOnClickListener(view -> {
+            MoviesDao userDao = db.moviesDao();
+            userDao.insertAll(moviesCopy);
         });
 
 
