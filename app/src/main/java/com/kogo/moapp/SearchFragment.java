@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.android.volley.Request;
@@ -22,7 +20,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.kogo.moapp.adapters.SearchMovieAdapter;
 import com.kogo.moapp.databinding.FragmentSearchBinding;
+import com.kogo.moapp.db.MoviesForFavorites;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,15 +30,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class SearchFragment extends Fragment {
 
     private FragmentSearchBinding searchBinding;
-    public List<Movies> moviesListPopular = new ArrayList<>();
-    public List<Movies> moviesListSearch = new ArrayList<>();
-    private List<Movies> moviesList = new ArrayList<>();
+    public List<MoviesForFavorites> moviesForFavoritesListPopular = new ArrayList<>();
+    public List<MoviesForFavorites> moviesForFavoritesListSearches = new ArrayList<>();
     private SearchMovieAdapter searchMovieAdapter;
     private final String urlPopularMovie = "https://api.themoviedb.org/3/movie/popular?api_key=";
     private final String urlSearchMovie = "https://api.themoviedb.org/3/search/movie?api_key=";
@@ -49,7 +47,7 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         searchBinding = FragmentSearchBinding.inflate(inflater, container, false);
-        moviesListPopular.clear();
+        moviesForFavoritesListPopular.clear();
         searchBinding.recyclerViewMovies.setHasFixedSize(true);
         searchBinding.recyclerViewMovies.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
 
@@ -57,9 +55,8 @@ public class SearchFragment extends Fragment {
 
         searchBinding.textViewCancel.setOnClickListener(view -> {
             searchBinding.editTextSearchMovie.getText().clear();
-            moviesListPopular.clear();
-            moviesListSearch.clear();
-            // getPopularMovies();
+            moviesForFavoritesListPopular.clear();
+            moviesForFavoritesListSearches.clear();
             hideKeyboard(getActivity());
         });
 
@@ -80,7 +77,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                moviesListSearch.clear();
+                moviesForFavoritesListSearches.clear();
                 searchMovie(editable.toString());
                 System.out.println(editable.toString());
             }
@@ -88,6 +85,7 @@ public class SearchFragment extends Fragment {
 
         return searchBinding.getRoot();
     }
+
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -106,8 +104,8 @@ public class SearchFragment extends Fragment {
         System.out.println(searchMovieURL);
 
         if (searchMovieURL.equals("https://api.themoviedb.org/3/search/movie?api_key=4186844cb1e227ca51b707e60d7238fe&language=en-US&query=")){
-            moviesListPopular.clear();
-            moviesListSearch.clear();
+            moviesForFavoritesListPopular.clear();
+            moviesForFavoritesListSearches.clear();
             System.out.println("Burada");
             getPopularMovies();
         }
@@ -125,20 +123,19 @@ public class SearchFragment extends Fragment {
 
                         for (int i = 0; i <jsonArrayResults.length(); i++){
                             JSONObject jsonObjectMovie = jsonArrayResults.getJSONObject(i);
-                            int id = jsonObjectMovie.getInt("id");
+                            int id = jsonObjectMovie.getInt(    "id");
                             String original_title = jsonObjectMovie.getString("original_title");
                             String overview = jsonObjectMovie.getString("overview");
                             String poster_path = jsonObjectMovie.getString("poster_path");
                             String release_date = jsonObjectMovie.getString("release_date");
                             double vote_average = jsonObjectMovie.getDouble("vote_average");
 
-                            // moviesListPopular.add(i ,new Movies(id,original_title,overview,poster_path,release_date));
-                            Movies m1 = new Movies(id,original_title,overview,poster_path,release_date,vote_average);
-                            moviesListSearch.add(m1);
+                            MoviesForFavorites m1 = new MoviesForFavorites(id,original_title,overview,poster_path,release_date,vote_average);
 
+                            moviesForFavoritesListSearches.add(m1);
                             searchBinding.recyclerViewMovies.setHasFixedSize(true);
                             searchBinding.recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext()));
-                            searchMovieAdapter = new SearchMovieAdapter(getContext(),moviesListSearch);
+                            searchMovieAdapter = new SearchMovieAdapter(getContext(), moviesForFavoritesListSearches);
                             searchBinding.recyclerViewMovies.setAdapter(searchMovieAdapter);
 
                         }
@@ -161,7 +158,8 @@ public class SearchFragment extends Fragment {
 
     public void getPopularMovies(){
 
-        moviesListPopular.clear();
+
+        moviesForFavoritesListPopular.clear();
         String popularMoviesURL = urlPopularMovie + apiKey + "&page=1";
         // popularMoviesURL = https://api.themoviedb.org/3/movie/popular?api_key=4186844cb1e227ca51b707e60d7238fe&page=1
 
@@ -185,15 +183,13 @@ public class SearchFragment extends Fragment {
                         String release_date = jsonObjectMovie.getString("release_date");
                         double vote_average = jsonObjectMovie.getDouble("vote_average");
 
-                        System.out.println(original_title);
 
-                       // moviesListPopular.add(i ,new Movies(id,original_title,overview,poster_path,release_date));
-                        Movies m1 = new Movies(id,original_title,overview,poster_path,release_date,vote_average);
-                        moviesListPopular.add(m1);
+                        MoviesForFavorites m1 = new MoviesForFavorites(id,original_title,overview,poster_path,release_date,vote_average);
 
+                        moviesForFavoritesListPopular.add(m1);
                         searchBinding.recyclerViewMovies.setHasFixedSize(true);
                         searchBinding.recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext()));
-                        searchMovieAdapter = new SearchMovieAdapter(getContext(),moviesListPopular);
+                        searchMovieAdapter = new SearchMovieAdapter(getContext(), moviesForFavoritesListPopular);
                         searchBinding.recyclerViewMovies.setAdapter(searchMovieAdapter);
 
                     }

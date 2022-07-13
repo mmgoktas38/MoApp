@@ -1,11 +1,11 @@
-package com.kogo.moapp;
+package com.kogo.moapp.db;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "movies_table")
-public class MoviesCopy {
+@Entity(tableName = "favorites_movies")
+public class MoviesForFavorites {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "index_id")
@@ -23,11 +23,11 @@ public class MoviesCopy {
     @ColumnInfo(name = "vote_average")
     private double vote_average;
 
-    public MoviesCopy() {
+    public MoviesForFavorites() {
     }
 
 
-    public MoviesCopy( int film_id, String original_title, String overview, String poster_path, String release_date, double vote_average) {
+    public MoviesForFavorites(int film_id, String original_title, String overview, String poster_path, String release_date, double vote_average) {
         this.film_id = film_id;
         this.original_title = original_title;
         this.overview = overview;

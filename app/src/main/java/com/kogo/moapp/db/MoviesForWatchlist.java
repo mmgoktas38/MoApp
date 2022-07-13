@@ -1,19 +1,35 @@
-package com.kogo.moapp;
+package com.kogo.moapp.db;
 
-public class Movies {
-    private int id;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "watchlist_movies")
+public class MoviesForWatchlist {
+
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "index_id")
+    private int index_id;
+    @ColumnInfo(name = "film_id")
+    private int film_id;
+    @ColumnInfo(name = "original_title")
     private String original_title;
+    @ColumnInfo(name = "overview")
     private String overview;
+    @ColumnInfo(name = "poster_path")
     private String poster_path;
+    @ColumnInfo(name = "release_date")
     private String release_date;
+    @ColumnInfo(name = "vote_average")
     private double vote_average;
 
-    public Movies() {
+    public MoviesForWatchlist() {
     }
 
 
-    public Movies(int id, String original_title, String overview, String poster_path, String release_date, double vote_average) {
-        this.id = id;
+    public MoviesForWatchlist( int film_id, String original_title, String overview, String poster_path, String release_date, double vote_average) {
+        this.film_id = film_id;
         this.original_title = original_title;
         this.overview = overview;
         this.poster_path = poster_path;
@@ -21,12 +37,22 @@ public class Movies {
         this.vote_average = vote_average;
     }
 
-    public int getId() {
-        return id;
+    public int getIndex_id() {
+        return index_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIndex_id(int index_id) {
+        this.index_id = index_id;
+    }
+
+
+
+    public int getFilm_id() {
+        return film_id;
+    }
+
+    public void setFilm_id(int film_id) {
+        this.film_id = film_id;
     }
 
     public String getOriginal_title() {
