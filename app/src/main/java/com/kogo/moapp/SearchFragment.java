@@ -84,17 +84,8 @@ public class SearchFragment extends Fragment {
         });
 
         return searchBinding.getRoot();
-    }
 
-    public static void hideKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(activity);
-        }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
     }
 
     public void searchMovie(String text){
@@ -158,7 +149,6 @@ public class SearchFragment extends Fragment {
 
     public void getPopularMovies(){
 
-
         moviesForFavoritesListPopular.clear();
         String popularMoviesURL = urlPopularMovie + apiKey + "&page=1";
         // popularMoviesURL = https://api.themoviedb.org/3/movie/popular?api_key=4186844cb1e227ca51b707e60d7238fe&page=1
@@ -208,6 +198,17 @@ public class SearchFragment extends Fragment {
         });
 
         Volley.newRequestQueue(getContext()).add(stringRequest);
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 

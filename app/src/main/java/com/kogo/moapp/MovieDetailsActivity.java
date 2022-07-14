@@ -22,8 +22,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private int movieId;
     private String movieTitle, movieOverview, moviePoster, movieReleaseDate;
     private double movieVoteAverage;
-    private MoviesForFavorites getFavoriteMovie;
-    private MoviesForWatchlist getWatchlistMovie;
+    private MoviesForFavorites getFavoriteMovie, moviesForFavorites;
+    private MoviesForWatchlist getWatchlistMovie, moviesForWatchlist;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
         // get movie from database by movieId
         getFavoriteMovie = userDao.getFavoritesMovieById(movieId);
         getWatchlistMovie = userDao.getWatchlistMovieById(movieId);
-        // control, if movie in our favoriteslist or watchlist
-        MoviesForFavorites moviesForFavorites = isMovieInFavorites();
-        MoviesForWatchlist moviesForWatchlist = isMovieInWatchlist();
+
+        // control, if movie in our favoriteslist database or watchlist database
+        moviesForFavorites = isMovieInFavorites();
+        moviesForWatchlist = isMovieInWatchlist();
 
         String photo_url_str = "https://image.tmdb.org/t/p/original/" + moviePoster;
         Picasso.with(getApplicationContext()).load(photo_url_str).into(movieDetailsBinding.imageViewMoviePoster);
@@ -67,6 +69,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         movieDetailsBinding.imageViewSaveToFavorites.setOnClickListener(view -> {
 
+            // get movie from database by movieId
+            getFavoriteMovie = userDao.getFavoritesMovieById(movieId);
+            getWatchlistMovie = userDao.getWatchlistMovieById(movieId);
+
             if (getFavoriteMovie == null){
                 userDao.insertAll(moviesForFavorites);
                 movieDetailsBinding.imageViewSaveToFavorites.setImageResource(R.drawable.favorite_film);
@@ -78,6 +84,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         });
         movieDetailsBinding.imageViewSaveToWatchlist.setOnClickListener(view -> {
+
+            // get movie from database by movieId
+            getFavoriteMovie = userDao.getFavoritesMovieById(movieId);
+            getWatchlistMovie = userDao.getWatchlistMovieById(movieId);
 
             if (getWatchlistMovie == null){
                 userDao.insertAllMoviesForWatchlist(moviesForWatchlist);
@@ -92,6 +102,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
 
     }
+
 
     public MoviesForFavorites isMovieInFavorites(){
 
@@ -109,6 +120,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     public MoviesForWatchlist isMovieInWatchlist(){
+
 
         if (getWatchlistMovie == null){
             movieDetailsBinding.imageViewSaveToWatchlist.setImageResource(R.drawable.watchlist);
