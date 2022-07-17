@@ -28,6 +28,7 @@
                 android:id="@+id/textViewPageTitleSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
                 android:text="Search"
                 android:textSize="16sp"
                 android:textStyle="bold"

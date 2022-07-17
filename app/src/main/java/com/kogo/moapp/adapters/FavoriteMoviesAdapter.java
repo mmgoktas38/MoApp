@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.kogo.moapp.MovieDetailsActivity;
 import com.kogo.moapp.R;
 import com.kogo.moapp.db.MoviesForFavorites;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class FavoriteMoviesAdapter extends RecyclerView.Adapter<FavoriteMoviesAd
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_design_search, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_design_favorites_watchlist, parent, false);
 
         return new CardViewHolder(view);
     }
@@ -55,6 +57,8 @@ public class FavoriteMoviesAdapter extends RecyclerView.Adapter<FavoriteMoviesAd
             intent.putExtra("Movie Vote Average", movie.getVote_average());
             mContext.startActivity(intent);
         });
+        String photo_url_str = "https://image.tmdb.org/t/p/original/" + movie.getPoster_path();
+        Picasso.with(mContext).load(photo_url_str).into(holder.imageViewPoster);
     }
 
     @Override
@@ -67,12 +71,13 @@ public class FavoriteMoviesAdapter extends RecyclerView.Adapter<FavoriteMoviesAd
 
         public ConstraintLayout cLayoutMovieSearch;
         public TextView textViewMovieNameYear;
+        public ImageView imageViewPoster;
 
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
             cLayoutMovieSearch = itemView.findViewById(R.id.cLayoutMovieSearch);
             textViewMovieNameYear = itemView.findViewById(R.id.textViewMovieNameYear);
-
+            imageViewPoster = itemView.findViewById(R.id.imageViewPoster);
         }
     }
 }

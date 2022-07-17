@@ -101,6 +101,8 @@ public class SearchFragment extends Fragment {
             getPopularMovies();
         }
         else {
+            moviesForFavoritesListPopular.clear();
+            moviesForFavoritesListSearches.clear();
             StringRequest stringRequest = new StringRequest(Request.Method.GET, searchMovieURL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -139,7 +141,8 @@ public class SearchFragment extends Fragment {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    Log.e("error: ", error.toString());
+                    error.printStackTrace();
                 }
             });
 

@@ -4,10 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/favorite_film.xml" value="0.3675" />
-        <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/login_button_background.xml" value="0.3675" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/login_button_background_true.xml" value="0.1875" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/login_edittext_background.xml" value="0.3675" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/visibility_off.xml" value="0.3675" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/activity_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/activity_movie_details.xml" value="0.36666666666666664" />
-        <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/card_design_search.xml" value="0.33" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.36666666666666664" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/card_design_favorites_watchlist.xml" value="0.25" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/card_design_search.xml" value="0.5" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/fragment_favorites.xml" value="0.36666666666666664" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/fragment_movie_details.xml" value="0.36666666666666664" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/fragment_search.xml" value="0.36666666666666664" />
