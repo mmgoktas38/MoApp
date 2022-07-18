@@ -1,4 +1,4 @@
-package com.kogo.moapp;
+package com.kogo.moapp.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -88,6 +88,59 @@ public class SearchFragment extends Fragment {
 
     }
 
+    public void getPopularMovies(){
+
+        moviesForFavoritesListPopular.clear();
+        String popularMoviesURL = urlPopularMovie + apiKey + "&page=1";
+        // popularMoviesURL = https://api.themoviedb.org/3/movie/popular?api_key=4186844cb1e227ca51b707e60d7238fe&page=1
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, popularMoviesURL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String output = response;
+                System.out.println(output);
+                Log.e("response", response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArrayResults = jsonObject.getJSONArray("results");
+
+                    for (int i = 0; i <jsonArrayResults.length(); i++){
+                        JSONObject jsonObjectMovie = jsonArrayResults.getJSONObject(i);
+                        int id = jsonObjectMovie.getInt("id");
+                        String original_title = jsonObjectMovie.getString("original_title");
+                        String overview = jsonObjectMovie.getString("overview");
+                        String poster_path = jsonObjectMovie.getString("poster_path");
+                        String release_date = jsonObjectMovie.getString("release_date");
+                        double vote_average = jsonObjectMovie.getDouble("vote_average");
+
+
+                        MoviesForFavorites m1 = new MoviesForFavorites(id,original_title,overview,poster_path,release_date,vote_average);
+
+                        moviesForFavoritesListPopular.add(m1);
+                        searchBinding.recyclerViewMovies.setHasFixedSize(true);
+                        searchBinding.recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext()));
+                        searchMovieAdapter = new SearchMovieAdapter(getContext(), moviesForFavoritesListPopular);
+                        searchBinding.recyclerViewMovies.setAdapter(searchMovieAdapter);
+
+                    }
+
+
+                } catch (JSONException e ) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+    }
+
     public void searchMovie(String text){
 
         String searchMovieURL = urlSearchMovie + apiKey + "&language=en-US&query=" + text;
@@ -148,59 +201,6 @@ public class SearchFragment extends Fragment {
 
             Volley.newRequestQueue(getContext()).add(stringRequest);
         }
-    }
-
-    public void getPopularMovies(){
-
-        moviesForFavoritesListPopular.clear();
-        String popularMoviesURL = urlPopularMovie + apiKey + "&page=1";
-        // popularMoviesURL = https://api.themoviedb.org/3/movie/popular?api_key=4186844cb1e227ca51b707e60d7238fe&page=1
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, popularMoviesURL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                String output = response;
-                System.out.println(output);
-                Log.e("response", response);
-
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArrayResults = jsonObject.getJSONArray("results");
-
-                    for (int i = 0; i <jsonArrayResults.length(); i++){
-                        JSONObject jsonObjectMovie = jsonArrayResults.getJSONObject(i);
-                        int id = jsonObjectMovie.getInt("id");
-                        String original_title = jsonObjectMovie.getString("original_title");
-                        String overview = jsonObjectMovie.getString("overview");
-                        String poster_path = jsonObjectMovie.getString("poster_path");
-                        String release_date = jsonObjectMovie.getString("release_date");
-                        double vote_average = jsonObjectMovie.getDouble("vote_average");
-
-
-                        MoviesForFavorites m1 = new MoviesForFavorites(id,original_title,overview,poster_path,release_date,vote_average);
-
-                        moviesForFavoritesListPopular.add(m1);
-                        searchBinding.recyclerViewMovies.setHasFixedSize(true);
-                        searchBinding.recyclerViewMovies.setLayoutManager(new LinearLayoutManager(getContext()));
-                        searchMovieAdapter = new SearchMovieAdapter(getContext(), moviesForFavoritesListPopular);
-                        searchBinding.recyclerViewMovies.setAdapter(searchMovieAdapter);
-
-                    }
-
-
-                } catch (JSONException e ) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        Volley.newRequestQueue(getContext()).add(stringRequest);
     }
 
     public static void hideKeyboard(Activity activity) {

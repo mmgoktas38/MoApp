@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.kogo.moapp.FavoritesFragment"
+        android:name="com.kogo.moapp.fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.kogo.moapp.SearchFragment"
+        android:name="com.kogo.moapp.fragments.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/watchlistFragment"
-        android:name="com.kogo.moapp.WatchlistFragment"
+        android:name="com.kogo.moapp.fragments.WatchlistFragment"
         android:label="fragment_watchlist"
         tools:layout="@layout/fragment_watchlist" />
 </navigation>

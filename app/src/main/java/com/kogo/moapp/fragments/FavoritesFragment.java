@@ -1,4 +1,4 @@
-package com.kogo.moapp;
+package com.kogo.moapp.fragments;
 
 import android.os.Bundle;
 
@@ -41,7 +41,6 @@ public class FavoritesFragment extends Fragment {
         favoritesBinding.recyclerViewFavorites.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         favoriteMoviesAdapter = new FavoriteMoviesAdapter(getContext(),moviesForFavoritesList);
         favoritesBinding.recyclerViewFavorites.setAdapter(favoriteMoviesAdapter);
-
 
         return favoritesBinding.getRoot();
     }

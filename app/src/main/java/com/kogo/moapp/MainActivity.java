@@ -28,7 +28,6 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonGoMenuActivity;
     private Handler handler = new Handler();
     private ProgressDialog progressDialog;
     private int progressCountt = 0;
@@ -91,33 +90,26 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("get P: " + progressCountt);
                         progressDialog.show();
 
-                        //  progressBar.setVisibility(View.VISIBLE);
-                        //  progressCount = progressBar.getProgress();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 while(progressCountt<3){
-                                    //        progressCount+=1;
                                     progressCountt+=1;
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             progressDialog.setProgress(progressCountt);
-                                            //   progressBar.setProgress(progressCount);
                                             System.out.println(": " + progressCountt);
                                             if (progressCountt==3){
                                                 if (isNetworkAvailable(MainActivity.this)){
-
                                                     if (progressDialog != null && progressDialog.isShowing()) {
                                                         progressDialog.dismiss();
                                                     }
-
                                                     Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                                                     startActivity(intent);
                                                 }
                                                 else {
                                                     Toast.makeText(MainActivity.this, "Check internet connection", Toast.LENGTH_SHORT).show();
-                                                    //   progressBar.setVisibility(View.INVISIBLE);
                                                 }
                                             }
                                         }
@@ -175,57 +167,8 @@ public class MainActivity extends AppCompatActivity {
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
-    public void showLoginProgressDialog(){
-        progressDialog = new ProgressDialog(MainActivity.this);
-        progressDialog.setMessage("Giriş Yapılıyor, lütfen bekleyiniz..");
-        progressCountt = progressDialog.getProgress();
-        System.out.println("get P: " + progressCountt);
-        progressDialog.show();
 
-        //  progressBar.setVisibility(View.VISIBLE);
-        //  progressCount = progressBar.getProgress();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(progressCountt<3){
-                    //        progressCount+=1;
-                    progressCountt+=1;
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.setProgress(progressCountt);
-                            //   progressBar.setProgress(progressCount);
-                            System.out.println(": " + progressCountt);
-                            if (progressCountt==3){
-                                if (isNetworkAvailable(MainActivity.this)){
-
-                                    if (progressDialog != null && progressDialog.isShowing()) {
-                                        progressDialog.dismiss();
-                                    }
-
-                                    Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-                                    startActivity(intent);
-                                }
-                                else {
-                                    Toast.makeText(MainActivity.this, "Check internet connection", Toast.LENGTH_SHORT).show();
-                                    //   progressBar.setVisibility(View.INVISIBLE);
-                                }
-                            }
-                        }
-                    });
-                    try {
-                        Thread.sleep(1000);
-                    }catch (InterruptedException e){
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        }).start();
-    }
-
-    public static boolean isValidEmail(String email)
-    {
+    public static boolean isValidEmail(String email){
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +

@@ -5,7 +5,7 @@
     android:id="@+id/cLayoutSearch"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WatchlistFragment">
+    tools:context=".fragments.WatchlistFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewWatchlist"

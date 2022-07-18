@@ -1,4 +1,4 @@
-package com.kogo.moapp;
+package com.kogo.moapp.fragments;
 
 import android.os.Bundle;
 
