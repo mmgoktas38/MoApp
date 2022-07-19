@@ -33,16 +33,36 @@ public class WatchlistFragment extends Fragment {
 
         watchlistBinding = FragmentWatchlistBinding.inflate(inflater, container, false);
 
+        optionsWatchlistDBandRecyclerview();
+
+        return watchlistBinding.getRoot();
+    }
+
+    public void optionsWatchlistDBandRecyclerview(){
+
         AppDatabase db = Room.databaseBuilder(getActivity(), AppDatabase.class, "database-name").allowMainThreadQueries().build();
         MoviesDao userDao = db.moviesDao();
 
+        moviesForWatchlists.clear();
         moviesForWatchlists = userDao.getAllWatchlistMovies();
 
         watchlistBinding.recyclerViewWatchlist.setHasFixedSize(true);
         watchlistBinding.recyclerViewWatchlist.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+        watchlistMoviesAdapter = null;
         watchlistMoviesAdapter = new WatchlistMoviesAdapter(getContext(),moviesForWatchlists);
         watchlistBinding.recyclerViewWatchlist.setAdapter(watchlistMoviesAdapter);
+        watchlistMoviesAdapter.notifyDataSetChanged();
+    }
 
-        return watchlistBinding.getRoot();
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        optionsWatchlistDBandRecyclerview();    // update recyclerview list
+
     }
 }

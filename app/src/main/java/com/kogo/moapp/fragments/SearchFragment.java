@@ -147,7 +147,7 @@ public class SearchFragment extends Fragment {
         // searchMovieURL = https://api.themoviedb.org/3/search/movie?api_key=4186844cb1e227ca51b707e60d7238fe&query=doctor
         System.out.println(searchMovieURL);
 
-        if (searchMovieURL.equals("https://api.themoviedb.org/3/search/movie?api_key=4186844cb1e227ca51b707e60d7238fe&language=en-US&query=")){
+        if (searchBinding.editTextSearchMovie.getText().toString().equals("")){
             moviesForFavoritesListPopular.clear();
             moviesForFavoritesListSearches.clear();
             System.out.println("Burada");

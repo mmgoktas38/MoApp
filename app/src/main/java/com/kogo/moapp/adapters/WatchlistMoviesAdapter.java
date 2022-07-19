@@ -56,6 +56,7 @@ public class WatchlistMoviesAdapter extends RecyclerView.Adapter<WatchlistMovies
         holder.textViewMovieNameYear.setText(movie.getOriginal_title() + " - " + arrOfStr[0]);
         holder.cLayoutMovieSearch.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, MovieDetailsActivity.class);
+            intent.putExtra("fromWatchlist",1);
             intent.putExtra("Movie Id", movie.getFilm_id());
             intent.putExtra("Movie Title", movie.getOriginal_title());
             intent.putExtra("Movie Overview", movie.getOverview());

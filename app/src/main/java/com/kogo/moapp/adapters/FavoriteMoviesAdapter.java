@@ -1,5 +1,6 @@
 package com.kogo.moapp.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.kogo.moapp.R;
 import com.kogo.moapp.db.MoviesForFavorites;
 import com.squareup.picasso.Picasso;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class FavoriteMoviesAdapter extends RecyclerView.Adapter<FavoriteMoviesAdapter.CardViewHolder> {
@@ -35,7 +37,6 @@ public class FavoriteMoviesAdapter extends RecyclerView.Adapter<FavoriteMoviesAd
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_design_favorites_watchlist, parent, false);
-
         return new CardViewHolder(view);
     }
 
@@ -43,12 +44,15 @@ public class FavoriteMoviesAdapter extends RecyclerView.Adapter<FavoriteMoviesAd
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         MoviesForFavorites movie = moviesList.get(position);
+        System.out.println("movielist size: " + moviesList.size());
+        System.out.println("movie " + movie.getOriginal_title());
 
         String[] arrOfStr = movie.getRelease_date().split("-");
 
         holder.textViewMovieNameYear.setText(movie.getOriginal_title() + " - " + arrOfStr[0]);
         holder.cLayoutMovieSearch.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, MovieDetailsActivity.class);
+            intent.putExtra("fromFavorites",1);
             intent.putExtra("Movie Id", movie.getFilm_id());
             intent.putExtra("Movie Title", movie.getOriginal_title());
             intent.putExtra("Movie Overview", movie.getOverview());
@@ -57,6 +61,7 @@ public class FavoriteMoviesAdapter extends RecyclerView.Adapter<FavoriteMoviesAd
             intent.putExtra("Movie Vote Average", movie.getVote_average());
             mContext.startActivity(intent);
         });
+
         String photo_url_str = "https://image.tmdb.org/t/p/original/" + movie.getPoster_path();
         Picasso.with(mContext).load(photo_url_str).into(holder.imageViewPoster);
     }
