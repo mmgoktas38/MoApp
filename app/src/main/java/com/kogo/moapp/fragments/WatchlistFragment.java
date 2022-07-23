@@ -45,7 +45,14 @@ public class WatchlistFragment extends Fragment {
 
         moviesForWatchlists.clear();
         moviesForWatchlists = userDao.getAllWatchlistMovies();
-
+        if(moviesForWatchlists.size() == 0){
+            watchlistBinding.imageViewWatchListEmpty.setVisibility(View.VISIBLE);
+            watchlistBinding.textViewWatchListEmpty.setVisibility(View.VISIBLE);
+        }
+        else {
+            watchlistBinding.imageViewWatchListEmpty.setVisibility(View.INVISIBLE);
+            watchlistBinding.textViewWatchListEmpty.setVisibility(View.INVISIBLE);
+        }
         watchlistBinding.recyclerViewWatchlist.setHasFixedSize(true);
         watchlistBinding.recyclerViewWatchlist.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         watchlistMoviesAdapter = null;

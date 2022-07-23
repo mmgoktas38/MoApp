@@ -6,11 +6,13 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.navigation.Navigation;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private int progressCountt = 0;
     private ActivityMainBinding activityMainBinding;
+    private Dialog dialog;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
-
+        dialog=new Dialog(MainActivity.this);
 
         activityMainBinding.editTextEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -54,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                changeLoginButtonColor();
+                if (!activityMainBinding.editTextPassword.getText().toString().equals("")){
+                    changeLoginButtonColor();
+                }
             }
         });
 
@@ -71,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                changeLoginButtonColor();
+                if (!activityMainBinding.editTextEmail.getText().toString().equals("")){
+                    changeLoginButtonColor();
+                }
             }
         });
 
@@ -81,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"Fill in the blanks", Toast.LENGTH_SHORT).show();
             }
             else {
+
                 if (isValidEmail(activityMainBinding.editTextEmail.getText().toString())) {
                     if (isValidPassword(activityMainBinding.editTextPassword.getText().toString())) {
 
@@ -126,14 +134,42 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     else {
-                        Toast.makeText(MainActivity.this,"Check the password", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(MainActivity.this,"Check the password", Toast.LENGTH_SHORT).show();
+                        activityMainBinding.textViewValidPassword.setVisibility(View.VISIBLE);
+                        editTextPasswordTextChange();
                     }
                 }
                 else {
-                    Toast.makeText(MainActivity.this,"Check the email", Toast.LENGTH_SHORT).show();
+                    if (isValidPassword(activityMainBinding.editTextPassword.getText().toString())){
+                    }else {
+                        activityMainBinding.textViewValidPassword.setVisibility(View.VISIBLE);
+                        editTextPasswordTextChange();
+                    }
+
+                    activityMainBinding.textViewValidEmail.setVisibility(View.VISIBLE);
+                    editTextEmailTextChange();
                 }
             }
 
+        });
+
+        activityMainBinding.imageViewInfoPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                dialog.setContentView(R.layout.password_valid_info);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                Button buttonOkPasswordInfo=dialog.findViewById(R.id.buttonOkPasswordInfo);
+
+                buttonOkPasswordInfo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
         });
 
         activityMainBinding.imageViewShowOrHidePassword.setOnClickListener(view -> {
@@ -149,6 +185,54 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public void editTextEmailTextChange(){
+        activityMainBinding.editTextEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (isValidEmail(editable.toString()) == true){
+                    activityMainBinding.textViewValidEmail.setText("Valid email");
+                }
+                else {
+                    activityMainBinding.textViewValidEmail.setText("Please enter a valid email address");
+                }
+            }
+        });
+    }
+
+    public void editTextPasswordTextChange(){
+        activityMainBinding.editTextPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (isValidPassword(editable.toString()) == true){
+                    activityMainBinding.textViewValidPassword.setText("Valid password");
+                }
+                else {
+                    activityMainBinding.textViewValidPassword.setText("Please enter a valid password");
+                }
+            }
+        });
     }
 
     public void changeLoginButtonColor(){

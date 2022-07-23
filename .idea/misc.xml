@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/card_design.xml" value="0.3675" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/corner_background.xml" value="0.3675" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/favorite_film.xml" value="0.3675" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/login_button_background.xml" value="0.3675" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/drawable/login_button_background_true.xml" value="0.1875" />
@@ -19,6 +21,7 @@
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/fragment_search.xml" value="0.36666666666666664" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/fragment_watchlist.xml" value="0.36666666666666664" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/movie_detail_page.xml" value="0.36666666666666664" />
+        <entry key="..\:/StajPointo/MoApp/app/src/main/res/layout/password_valid_info.xml" value="0.36666666666666664" />
         <entry key="..\:/StajPointo/MoApp/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.36666666666666664" />
       </map>
     </option>

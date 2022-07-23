@@ -50,7 +50,14 @@ public class FavoritesFragment extends Fragment {
 
         moviesForFavoritesList.clear();
         moviesForFavoritesList = userDao.getAll();
-
+        if(moviesForFavoritesList.size() == 0){
+            favoritesBinding.imageViewFavoritesListEmpty.setVisibility(View.VISIBLE);
+            favoritesBinding.textViewFavoritesListEmpty.setVisibility(View.VISIBLE);
+        }
+        else {
+            favoritesBinding.imageViewFavoritesListEmpty.setVisibility(View.INVISIBLE);
+            favoritesBinding.textViewFavoritesListEmpty.setVisibility(View.INVISIBLE);
+        }
         favoritesBinding.recyclerViewFavorites.setHasFixedSize(true);
         favoritesBinding.recyclerViewFavorites.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         favoriteMoviesAdapter = null;

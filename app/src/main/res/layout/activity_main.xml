@@ -28,9 +28,9 @@
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         app:cardCornerRadius="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/cardViewPassword"
+        app:layout_constraintBottom_toTopOf="@+id/textViewValidEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -64,9 +64,9 @@
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
         app:cardCornerRadius="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewForgotPassword"
+        app:layout_constraintBottom_toTopOf="@+id/textViewValidPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -88,7 +88,7 @@
                 android:inputType="textPassword"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewShowOrHidePassword"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewInfoPassword"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,13 +96,21 @@
                 android:id="@+id/imageViewShowOrHidePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/editTextPassword"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/visibility_off" />
+
+            <ImageView
+                android:id="@+id/imageViewInfoPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewShowOrHidePassword"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/info" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -110,7 +118,7 @@
         android:id="@+id/textViewForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="20dp"
         android:text="Forgot password?"
         android:textColor="#2196F3"
         android:textSize="12sp"
@@ -168,6 +176,27 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textViewValidEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="Please enter a valid email address"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewPassword"
+        app:layout_constraintStart_toStartOf="@+id/cardViewEmail" />
+
+    <TextView
+        android:id="@+id/textViewValidPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please enter a valid password"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/textViewForgotPassword"
+        app:layout_constraintStart_toStartOf="@+id/cardViewPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
