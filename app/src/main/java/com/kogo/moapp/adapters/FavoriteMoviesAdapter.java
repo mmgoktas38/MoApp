@@ -1,6 +1,5 @@
 package com.kogo.moapp.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,12 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kogo.moapp.MovieDetailsActivity;
+import com.kogo.moapp.activities.MovieDetailsActivity;
 import com.kogo.moapp.R;
 import com.kogo.moapp.db.MoviesForFavorites;
 import com.squareup.picasso.Picasso;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class FavoriteMoviesAdapter extends RecyclerView.Adapter<FavoriteMoviesAdapter.CardViewHolder> {

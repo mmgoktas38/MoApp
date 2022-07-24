@@ -1,4 +1,4 @@
-package com.kogo.moapp;
+package com.kogo.moapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.kogo.moapp.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

@@ -5,19 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintHelper;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kogo.moapp.MovieDetailsActivity;
+import com.kogo.moapp.activities.MovieDetailsActivity;
 import com.kogo.moapp.R;
-import com.kogo.moapp.db.MoviesForFavorites;
 import com.kogo.moapp.db.MoviesForWatchlist;
 import com.squareup.picasso.Picasso;
 

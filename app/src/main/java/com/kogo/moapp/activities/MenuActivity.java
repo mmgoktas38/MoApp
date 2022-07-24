@@ -1,4 +1,4 @@
-package com.kogo.moapp;
+package com.kogo.moapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
@@ -8,6 +8,7 @@ import androidx.room.Room;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.kogo.moapp.R;
 import com.kogo.moapp.adapters.FavoriteMoviesAdapter;
 import com.kogo.moapp.db.AppDatabase;
 import com.kogo.moapp.db.MoviesDao;

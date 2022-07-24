@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kogo.moapp.MovieDetailsActivity;
+import com.kogo.moapp.activities.MovieDetailsActivity;
 import com.kogo.moapp.R;
 import com.kogo.moapp.db.MoviesForFavorites;
 

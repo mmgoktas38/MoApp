@@ -1,15 +1,14 @@
-package com.kogo.moapp;
+package com.kogo.moapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
+import com.kogo.moapp.R;
 import com.kogo.moapp.adapters.FavoriteMoviesAdapter;
 import com.kogo.moapp.databinding.ActivityMovieDetailsBinding;
 import com.kogo.moapp.db.AppDatabase;
